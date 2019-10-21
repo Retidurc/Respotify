@@ -1,21 +1,30 @@
-﻿using System.Threading.Tasks;
+﻿using DalSoft.RestClient;
+using System.Threading.Tasks;
 
 namespace Remotify.V1
 {
     public class Player : EndPoint
     {
-        public Player(RestClient restClient) : base(restClient) { }
+        protected override string Ressource => "me/player";
 
-        protected override string Endpoint => "me/player";
-
-
-        public async Task Previous(string deviceId = "")
+        public async Task Previous()
         {
-            string uri = $"{Endpoint}/previous";
-            if (!string.IsNullOrWhiteSpace(deviceId))
-                uri += $"?device_id={deviceId}";
+            var response = await this.Endpoint.Previous.Post();         
+        }
 
-            await base.RestClient.Post<object>(uri, null);
+        public async Task Next()
+        {
+            await this.Endpoint.Next.Post();
+        }
+
+        public async Task Play()
+        {
+            await this.Endpoint.Play.Put();
+        }
+
+        public async Task Pause()
+        {
+            await this.Endpoint.Pause.Put();
         }
     }
 }
