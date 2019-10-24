@@ -1,4 +1,7 @@
 ﻿using DalSoft.RestClient;
+using Remotify.V1.Models;
+using Remotify.V1.Models.Player;
+using Remotify.V1.Models.Player.Reponses;
 using System.Threading.Tasks;
 
 namespace Remotify.V1
@@ -7,6 +10,20 @@ namespace Remotify.V1
     {
         protected override string Ressource => "me/player";
 
+        public async Task<object> Current()
+        {
+            return await this.Endpoint.Get();
+        }
+        public async Task<object> Current(Market market)
+        {
+            return await this.Endpoint.query(new { market = market.Code }).Get();
+        }
+
+        public async Task<Device[]> Devices()
+        {
+            Devices response =  await this.Endpoint.devices.Get();
+            return response.devices;
+        }
         public async Task Previous()
         {
             var response = await this.Endpoint.Previous.Post();         

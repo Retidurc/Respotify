@@ -10,7 +10,7 @@ namespace DebugGrounds
         {
 
             var  Player = new Player();
-            await Player.Previous();
+            var returned = await Player.Devices();
         }
     }
 }
