@@ -1,5 +1,6 @@
 ﻿using DalSoft.RestClient;
-
+using System;
+using System.Net.Http;
 namespace Remotify.V1
 {
     public abstract class EndPoint
@@ -8,11 +9,8 @@ namespace Remotify.V1
         protected EndPoint() : base()
         {
             this.RestClient = new RestClient(API.BaseAdress);
-            //temporary bearer token
-            var token = this.RestClient
-                .Authorization(AuthenticationSchemes.Bearer, "BQCRwgu-Oh-7nKE0AqozSdtTOx0aURowPi1lqwPOhBDRQRTbMSahI__SYKgcgwrZ9rTSn7fDVrsRdcWYz6B1_WeJVlBylxRH81cMFFsAmJjE-owM2bdi5IeKlwVhJMT7mTDvScuhc_MTSJ59YADfoI4JTPIS8v3p75ruQbVxw_N03oHPnuGXD-1s4cpD1xtqQo8dnvHDw06i6Yr7InWaoBujVM-dVW0dmz3a_2Q8asJ-aT5K_jOqt_4hFzLLSfzcuqeASOzXHi0bo8KN50mEGn6ayVm21tdVY5Mk")
-                .Get().Result;
-
+            RestClient.HttpClient.DefaultRequestHeaders
+                .Add("Authorization", "Bearer BQCGLUUdtev-UMFvtDVBuGkIbxIZOKRtZhkxWcBa_oyUN0ebxiFF4XXlBhTMRcW1mwOMFoU4tUaQgg-9qh9EJRvivGDfFIJ6d90nhZzwFtj6eHCh1RXcDj_HlE9wxBKpOr4FMqguCOw8inbNC_V2PdeID1jJjRQcP5r68ta1c7enZbN7YoUCkGXBvICeXy5RCBoyuqQnoEtvTXxG7aQufCyC3JeEnA7_dQm09VSuwSVDmX-ed8pnO3fM7BUgmCLRqaV6-6OluBtM4CRcTtPXvft_BkRsuKgChOh9");
         }
 
         protected RestClient RestClient { get; }
